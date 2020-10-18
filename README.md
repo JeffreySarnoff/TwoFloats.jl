@@ -2,6 +2,12 @@
 
 ### Copyright ©2020 by Jeffrey Sarnoff. This material is made available under the MIT License.
 
+----
+
+
+
+----
+
 ## References
 
 - for the _Pair Arithmetic_ defintions
