@@ -39,8 +39,8 @@
        - operations are computed without introducing accuracy guards
    
 ### design for interoperable advantage   
-   - make ready the use of `StructArrays.jl` with Vectors and Matricies of `Pairs`
-       - this is a requirement for best success in applying LoopVectorization.jl
+   - make ready use of StructArrays.jl with Vectors and Matricies of `Pairs`
+   - this allows LoopVectorization.jl to work properly with our `Pair` type
  
 ----
 
