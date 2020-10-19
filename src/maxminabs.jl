@@ -1,55 +1,66 @@
-"""
-    maxminabs(a, b)
-    
-- assures abs(a) >= abs(b)
-    - where a, b = maxminabs(a, b)
-"""
-maxminabs(a::T, b::T) where {T} = abs(b) < abs(a) ? (a, b) : (b, a)
+#=
+
+   Some Pair Arithmetic functions need to process the Pairs in one of a few magnitude relative orderings.
+   These functions ensure accurate arithmetic calcuation and allow the use of faster error-free addition.
+
+      maxmin_abs <-- reorder by decreasing absolute value
+      minmax_abs <-- reorder by increasing absolute value
+      mxxmnn_abs <-- reorder pairwise by decreasing absolute value
+      
+=#
 
 """
-    maxminabs(a, b, c)
+    maxmin_abs(a, b)
+    
+- assures abs(a) >= abs(b)
+    - where a, b = maxmin_abs(a, b)
+"""
+maxmin_abs(a::T, b::T) where {T} = abs(b) < abs(a) ? (a, b) : (b, a)
+
+"""
+    maxmin_abs(a, b, c)
     
 - assures abs(a) >= abs(b) >= abs(c)
-    - where a, b, c = maxminabs(a, b, c)
+    - where a, b, c = maxmin_abs(a, b, c)
 """
-function maxminabs(a::T, b::T, c::T) where {T}
-    b, c = maxminabs(b, c)
-    a, c = maxminabs(a, c)
-    a, b = maxminabs(a, b)
+function maxmin_abs(a::T, b::T, c::T) where {T}
+    b, c = maxmin_abs(b, c)
+    a, c = maxmin_abs(a, c)
+    a, b = maxmin_abs(a, b)
     return (a, b, c)
 end
 
 """
-    maxxminnabs(ahi, alo, bhi, blo)
+    mxxmnn_abs(ahi, alo, bhi, blo)
     
 - assures abs(ahi) >= abs(bhi) >= abs(alo) >= abs(blo)
-    - where ahi, alo, bhi, blo = maxxminnabs(ahi, alo, bhi, blo)
+    - where ahi, alo, bhi, blo = mxxmnn_abs(ahi, alo, bhi, blo)
 """
-function maxxminnabs(ahi::T, alo::T, bhi::T, blo::T) where {T}
-    ahi, bhi = maxminabs(ahi, bhi)
-    bhi, alo = maxminabs(bhi, alo)
-    alo, blo = maxminabs(alo, blo)
+function mxxmnn_abs(ahi::T, alo::T, bhi::T, blo::T) where {T}
+    ahi, bhi = maxmin_abs(ahi, bhi)
+    bhi, alo = maxmin_abs(bhi, alo)
+    alo, blo = maxmin_abs(alo, blo)
     return (ahi, alo, bhi, blo)
 end
 
 """
-    minmaxabs(a, b)
+    minmax_abs(a, b)
     
 - assures abs(a) <= abs(b)
-    - where a, b = minmaxabs(a, b)
+    - where a, b = minmax_abs(a, b)
 """
-minmaxabs(a::T, b::T) where {T} = abs(b) < abs(a) ? (b, a) : (a, b)
+minmax_abs(a::T, b::T) where {T} = abs(b) < abs(a) ? (b, a) : (a, b)
 
 """
-    minmaxabs(a, b, c)
+    minmax_abs(a, b, c)
     
 - assures abs(a) <= abs(b) <= abs(c)
-    - where a, b, c = minmaxabs(a, b, c)
+    - where a, b, c = minmax_abs(a, b, c)
 """
-function minmaxabs(a::T, b::T, c::T) where {T}
-    b, c = minmaxabs(b, c)
-    a, c = minmaxabs(a, c)
-    a, b = minmaxabs(a, b)
+function minmax_abs(a::T, b::T, c::T) where {T}
+    b, c = minmax_abs(b, c)
+    a, c = minmax_abs(a, c)
+    a, b = minmax_abs(a, b)
     return (a, b, c)
 end
 
