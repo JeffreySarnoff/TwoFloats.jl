@@ -6,7 +6,7 @@ using LinearAlgebra
 using StructArrays, LoopVectorization
 using ErrorfreeArithmetic
 
-include("paired.jl")
+include("typed_pairs.jl")
 include("pair_arithmetic.jl")
 include("reorder_by_magnitude.jl")
 
