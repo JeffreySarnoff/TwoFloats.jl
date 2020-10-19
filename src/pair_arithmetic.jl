@@ -35,6 +35,15 @@ function Base.:(*)(a::Pair, b::Pair)
     return Pair((hi, lo))
 end
 
+function Base.:(/)(a::Pair, b::Pair)
+    ahi, alo = a
+    bhi, blo = b
+    hi = ahi / bhi
+    t = fma(-bhi, hi, ahi)
+    lo = ((t + alo) - hi*blo) / (bhi + blo)
+    return Pair((hi, lo))
+end
+
 #=
     These function definitions appear on page 4 of "Faithfully Rounded Floating-point Computations"
 =#
@@ -70,8 +79,8 @@ function pair_div(ae::Pair, bf::Pair)
     a, e = ae
     b, f = bf
     hi = a / b
-    t = fma(-b, c, a)
-    lo = ((t + e) - c*f) / (b + f)
+    t = fma(-b, hi, a)
+    lo = ((t + e) - hi*f) / (b + f)
     return Pair((hi, lo))
 end
 
