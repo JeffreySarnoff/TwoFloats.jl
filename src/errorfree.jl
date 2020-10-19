@@ -45,9 +45,9 @@ end
 Computes `hi = fl(a*b*c)` and `lo = err(a*b*c)`.
 """
 function two_prod(a,b,c)
-    a, b, c = minmaxabs(a, b, c)
-    t,h = two_prod(c,b)
-    x,e = two_prod(t,a)
-    y = fma(a, h, e)
-    return x, y
+    a, b, c = maxminabs(a, b, c)
+    cbhi, cblo = two_prod(c, b)
+    hi, cba = two_prod(cbhi, a)
+    lo = fma(a, cblo, cba)
+    return hi, lo
 end
