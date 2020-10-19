@@ -25,8 +25,6 @@ function two_sum(a::T, b::T, c::T) where {T}
     return hi, lo
 end
 
-
-
 """
     two_prod(a, b)
 
