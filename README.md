@@ -14,7 +14,7 @@
    - make ready the use of `StructArrays.jl` with Vectors and Matricies of `Pairs`
        - this is a requirement for best success in applying LoopVectorization.jl
  
-### The extended precision arithmetic
+### the extended precision arithmetic
    - when working with unexceptional values
         - improves on `DoubleFloats.jl Double64 type` throughput
         - individual operations are accurate to 100 significant bits or more
