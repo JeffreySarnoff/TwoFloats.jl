@@ -16,15 +16,15 @@
    - processing advantages  
         - improves speed for primitives
         - improves operational throughput
-    - expected accuracy    
+   - expected accuracy    
         - primitives are accurate to 104 significant bits  
         - simple operations are accurate to 100 bits
         - common computations should keep 85 good bits
 
 #### with `NaNs`, `subnormals`, values outside `floatmin^(3/4)..floatmax^(3/4)` 
-    - special case logic requires branching
-    - indivdual operations are computed without accuracy guards
-    - subnormal processing is inherently slow
+   - special case logic requires branching
+   - indivdual operations are computed without accuracy guards
+   - subnormal processing is inherently slow
  
 ### design for interoperable advantage   
    - make ready the use of `StructArrays.jl` with Vectors and Matricies of `Pairs`
