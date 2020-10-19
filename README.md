@@ -22,10 +22,11 @@
         - common computations should keep 85 good bits
 
 #### when using exceptional values
-   - with _NaNs_, _subnormals_
+   - with _NaNs_
        - special case logic requires branching
-       - subnormal processing is inherently slow
-   - with values ∉ [floatmin^(3/4), floatmax^(3/4)]
+   - with _subnormals_    
+       - subnormals are inherently slow on most processors
+   - with tiny `< floatmin(T)^(3/4)` or huge `> floatmax(T)^(3/4)` values
        - indivdual operations are computed without accuracy guards
    
 ### design for interoperable advantage   
