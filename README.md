@@ -27,7 +27,7 @@
    - with _subnormals_    
        - subnormals are inherently slow on most processors
    - with tiny or huge `values ∉ [floatmin(T)^(3/4), floatmax(T)^(3/4)]`
-       - indivdual operations are computed without accuracy guards
+       - operations are computed without introducing accuracy guards
    
 ### design for interoperable advantage   
    - make ready the use of `StructArrays.jl` with Vectors and Matricies of `Pairs`
