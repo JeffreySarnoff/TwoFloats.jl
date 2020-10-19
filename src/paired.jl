@@ -25,5 +25,6 @@ refine(a::Pair{T}) where {T} = two_sum(a[1], a[2])
     renorm(a::Pair)
 
 *unchecked assumption*: abs(a[1]) >= abs(a[2])
+- a = renorm(a)
 """
 renorm(a::Pair{T}) where {T} = two_hilo_sum(a[1], a[2])
