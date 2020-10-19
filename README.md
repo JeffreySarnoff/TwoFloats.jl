@@ -4,6 +4,18 @@
 
 ----
 
+ 
+                              Please Note                        
+                   ---------------------------------------
+
+                   This is package is a _Work-in-Process_.      
+                   The current repository name is temporary.    
+
+                   ------------------------------------------
+
+             
+----
+
 ## The Concept
 
 ### create a more performant, less demanding analog of `Double64s`
