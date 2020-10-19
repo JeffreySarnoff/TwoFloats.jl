@@ -10,6 +10,31 @@ function Base.:(+)(a::Pair, b::Pair)
     return Pair((hi, lo))
 end
 
+function Base.:(-)(a::Pair, b::Pair)
+    ahi, alo = a
+    bhi, blo = b
+    ahi, alo, bhi, blo = maxxminnabs(ahi, alo, -bhi, -blo)
+    t0, t1 = two_hilo_sum(ahi, alo)
+    t2, t3 = two_hilo_sum(bhi, blo)
+    hi, t4 = two_hilo_sum(t0, t2)
+    lo = t4 + (t1+t3)
+    hi, lo = two_hilo_sum(hi, lo)
+    return Pair((hi, lo))
+end
+
+function Base.:(*)(a::Pair, b::Pair)
+    ahi, alo = a
+    bhi, blo = b
+    if abs(alo) > abs(bhi)
+        alo, bhi = bhi, alo
+        alo, blo = maxminabs(alo,blo)
+    end
+    hi = ahi * bhi
+    t = fma(ahi, bhi, -hi)
+    lo = t + (ahi*blo + bhi*alo)
+    return Pair((hi, lo))
+end
+
 #=
     These function definitions appear on page 4 of "Faithfully Rounded Floating-point Computations"
 =#
