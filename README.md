@@ -5,15 +5,20 @@
 ----
 
 ## The Concept
-
+s
 ### create a more performant, less demanding analog of `Double64s`
    - introduce hardwon improvements in error-free transformations
    - allow faithful rounding within the least significant octet
 
 ### the extended precision arithmetic
    - when working with unexceptional values
-        - improves on `DoubleFloats.jl Double64 type` throughput
-        - individual operations are accurate to 100 significant bits or more
+   - processing advantages  
+        - improves speed for primitives
+        - improves operational throughput
+    - expected accuracy    
+        - primitives are accurate to 104 significant bits  
+        - simple operations are accurate to 100 bits
+        - common computations should keep 85 good bits
    - with `NaNs`, `subnormals`, values outside `floatmin^(3/4)..floatmax^(3/4)` 
         - special case logic requires branching
         - indivdual operations are computed without accuracy guards
