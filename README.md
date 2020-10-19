@@ -6,12 +6,10 @@
 
  
                               Please Note                        
-                   ---------------------------------------
+                           ------------------
 
                    This is package is a _Work-in-Process_.      
                    The current repository name is temporary.    
-
-                   ------------------------------------------
 
              
 ----
