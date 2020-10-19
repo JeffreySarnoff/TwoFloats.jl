@@ -21,7 +21,7 @@
         - simple operations are accurate to 100 bits
         - common computations should keep 85 good bits
 
-#### with _NaNs_, _subnormals_, values outside `floatmin^(3/4)..floatmax^(3/4)` 
+#### with _NaNs_, _subnormals_, values outside _floatmin^(3/4)..floatmax^(3/4)_ 
    - special case logic requires branching
    - indivdual operations are computed without accuracy guards
    - subnormal processing is inherently slow
