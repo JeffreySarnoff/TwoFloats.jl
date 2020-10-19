@@ -31,3 +31,25 @@ function maxxminnabs(ahi::T, alo::T, bhi::T, blo::T) where {T}
     alo, blo = maxminabs(alo, blo)
     return (ahi, alo, bhi, blo)
 end
+
+"""
+    minmaxabs(a, b)
+    
+- assures abs(a) <= abs(b)
+    - where a, b = minmaxabs(a, b)
+"""
+minmaxabs(a::T, b::T) where {T} = abs(b) < abs(a) ? (b, a) : (a, b)
+
+"""
+    minmaxabs(a, b, c)
+    
+- assures abs(a) <= abs(b) <= abs(c)
+    - where a, b, c = minmaxabs(a, b, c)
+"""
+function minmaxabs(a::T, b::T, c::T) where {T}
+    b, c = minmaxabs(b, c)
+    a, c = minmaxabs(a, c)
+    a, b = minmaxabs(a, b)
+    return (a, b, c)
+end
+
