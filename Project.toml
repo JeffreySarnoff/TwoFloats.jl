@@ -3,7 +3,7 @@ uuid = "bf5b35d8-838d-41b7-9f78-454e6b2b90d3"
 keywords = ["Julia", "math", "floating-point", "extended-precision", "accuracy", "doubledouble"]
 authors = ["Jeffrey Sarnoff <JeffreySarnoff@users.noreply.github.com>"]
 license = "MIT"
-desc = "Performant arithmetic with extra precision from error-free transformations."
+desc = "accuracy enhanced arithmetic that performs well"
 version = "0.1.0"
 
 [deps]
