@@ -26,7 +26,7 @@
        - special case logic requires branching
    - with _subnormals_    
        - subnormals are inherently slow on most processors
-   - with tiny `< floatmin(T)^(3/4)` or huge `> floatmax(T)^(3/4)` values
+   - with tiny or huge values ∉ [floatmin(T)^(3/4), floatmax(T)^(3/4)]
        - indivdual operations are computed without accuracy guards
    
 ### design for interoperable advantage   
