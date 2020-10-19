@@ -44,6 +44,15 @@ function Base.:(/)(a::Pair, b::Pair)
     return Pair((hi, lo))
 end
 
+function Base.inv(b::Pair{T}) where {T}
+    bhi, blo = b
+    hi = inv(bhi)
+    t = fma(-bhi, hi, one(T))
+    lo = -(hi * blo) / (bhi + blo)
+    return Pair((hi, lo))
+end
+
+
 #=
     These function definitions appear on page 4 of "Faithfully Rounded Floating-point Computations"
 =#
