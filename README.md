@@ -6,7 +6,7 @@
 
 ## The Concept
 
-### implement more performant, less demanding analog of `Double64s`
+### create a more performant, less demanding analog of `Double64s`
    - introduce hardwon improvements in error-free transformations
    - allow faithful rounding within the least significant octet
 
