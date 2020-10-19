@@ -14,7 +14,7 @@
    - when working with unexceptional values
         - improves on `DoubleFloats.jl Double64 type` throughput
         - individual operations are accurate to 100 significant bits or more
-   - when working with `NaNs`, `subnormals`, values > sqrt(floatmax)
+   - with `NaNs`, `subnormals`, _values_ outside `floatmin^(3/4)..floatmax^(3/4)` 
         - special case logic requires branching
         - indivdual operations are computed without accuracy guards
         - subnormal processing is inherently slow
