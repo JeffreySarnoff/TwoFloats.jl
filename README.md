@@ -15,10 +15,10 @@
        - this is a requirement for best success in applying LoopVectorization.jl
  
 ### The extended precision arithmetic
-    - when working with unexceptional values
+   - when working with unexceptional values
         - improves on `DoubleFloats.jl Double64 type` throughput
         - individual operations are accurate to 100 significant bits or more
-    - when working with `NaNs`, `subnormals`, values > sqrt(floatmax)
+   - when working with `NaNs`, `subnormals`, values > sqrt(floatmax)
         - special case logic requires branching
         - indivdual operations are computed without accuracy guards
         - subnormal processing is inherently slow
