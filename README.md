@@ -7,9 +7,9 @@
  
                               Please Note                        
                            ------------------
-                   This is package is a _Work-in-Process_.      
-                   The current repository name is temporary.    
-
+                   This is Work-in-Process.  When ready,     
+                   the package will be given a new name.
+                   
              
 ----
 
