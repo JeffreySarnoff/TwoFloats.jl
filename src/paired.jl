@@ -13,6 +13,11 @@ Pair(p::Pair{T}) where {T} = p
 Pair{T1}(p::Pair{T2}) where {T1,T2} = (T1(p[1]), T1(p[2]))
 
 
+"""
+    refine(a::Pair)
+
+resets the canonical form
+"""
 refine(a::Pair{T}) where {T} = two_sum(a[1], a[2])
 
 """
