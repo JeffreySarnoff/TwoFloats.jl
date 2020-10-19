@@ -3,7 +3,7 @@
 """
     Pair{T} = Tuple{T,T}
 
-Pair(a, b)
+Pair(a, b) == (maxabs(a,b), minabs(a,b))
 """
 const Pair{T} = Tuple{T,T} where {T}
 
