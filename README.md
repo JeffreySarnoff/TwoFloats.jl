@@ -21,11 +21,13 @@
         - simple operations are accurate to 100 bits
         - common computations should keep 85 good bits
 
-#### with _NaNs_, _subnormals_, values ∉ floatmin^(3/4)..floatmax^(3/4) 
-   - special case logic requires branching
-   - indivdual operations are computed without accuracy guards
-   - subnormal processing is inherently slow
- 
+#### when using exceptional values
+   - with _NaNs_, _subnormals_
+       - special case logic requires branching
+       - subnormal processing is inherently slow
+   - with values ∉ [floatmin^(3/4), floatmax^(3/4)]
+       - indivdual operations are computed without accuracy guards
+   
 ### design for interoperable advantage   
    - make ready the use of `StructArrays.jl` with Vectors and Matricies of `Pairs`
        - this is a requirement for best success in applying LoopVectorization.jl
