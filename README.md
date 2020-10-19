@@ -19,6 +19,8 @@
    - introduce hardwon improvements in error-free transformations
    - allow faithful rounding within the least significant octet
 
+----
+
 ## The Extended Precision Arithmetic
 
 #### when working with unexceptional values
