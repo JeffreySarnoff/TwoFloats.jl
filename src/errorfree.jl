@@ -1,3 +1,20 @@
+#=
+    contents
+
+hi, lo = two_sum(a, b)
+hi, lo = two_sum(a, b, c)
+hi, lo = two_hilo_sum(a, b)
+hi, lo = two_lohi_sum(a, b)
+
+hi, lo = two_diff(a, b)
+hi, lo = two_hilo_diffa, b)
+hi, lo = two_lohi_diffa, b)
+
+hi, lo = two_prod(a, b)
+hi, lo = two_prod(a, b, c)
+
+=#
+
 """
     two_sum(a, b)
 
@@ -23,6 +40,69 @@ function two_sum(a::T, b::T, c::T) where {T}
     t0 += t1
     hi, lo = two_hilo_sum(hi, t0)
     return hi, lo
+end
+
+# arguments sorted by magnitude
+
+"""
+    two_hilo_sum(a, b)
+*unchecked* requirement `|a| ≥ |b|`
+Computes `hi = fl(a+b)` and `lo = err(a+b)`.
+"""
+@inline function two_hilo_sum(a::T, b::T) where {T}
+    hi = a + b
+    lo = b - (hi - a)
+    return hi, lo
+end
+
+"""
+    two_lohi_sum(a, b)
+
+*unchecked* requirement `|b| ≥ |a|`
+Computes `hi = fl(a+b)` and `lo = err(a+b)`.
+"""
+@inline function two_lohi_sum(a::T, b::T) where {T}
+    hi = b + a
+    lo = a - (hi - b)
+    return hi, lo
+end
+
+
+"""
+    two_diff(a, b)
+Computes `s = fl(a-b)` and `e = err(a-b)`.
+- Unchecked Precondition: !(isinf(a) | isinf(b))
+"""
+@inline function two_diff(a::T, b::T) where {T}
+    hi = a - b
+    db = (a - hi) - b
+    da = a - (hi + b)
+    lo = da + db
+    return hi, lo
+end
+
+"""
+    two_hilo_diff(a, b)
+    
+*unchecked* requirement `|a| ≥ |b|`
+Computes `hi = fl(a-b)` and `lo = err(a-b)`.
+"""
+@inline function two_hilo_diff(a::T, b::T) where {T}
+    hi = a - b
+    lo = (a - hi) - b
+    hi, lo
+end
+
+"""
+    two_lohi_diff(a, b)
+    
+*unchecked* requirement `|b| ≥ |a|`
+Computes `hi = fl(a-b)` and `lo = err(a-b)`.
+"""
+@inline function two_lohi_diff(a::T, b::T) where {T}
+    hi = b - a
+    lo = (b - hi) - a
+    hi, lo
 end
 
 """
