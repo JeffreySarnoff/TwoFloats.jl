@@ -14,12 +14,12 @@ Pair{T1}(p::Pair{T2}) where {T1,T2} = (T1(p[1]), T1(p[2]))
 
 
 """
-    refine(a::Pair)
+    refresh(a::Pair)
 
 resets the canonical form
 - a = refine(a)
 """
-refine(a::Pair{T}) where {T} = two_sum(a[1], a[2])
+refresh(a::Pair{T}) where {T} = two_sum(a[1], a[2])
 
 """
     renorm(a::Pair)
