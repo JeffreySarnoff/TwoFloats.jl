@@ -1,57 +1,74 @@
 #=
-
    Some Pair Arithmetic functions need to process the Pairs in one of a few magnitude relative orderings.
    These functions ensure accurate arithmetic calcuation and allow the use of faster error-free addition.
 
-      maxmin_abs <-- reorder by decreasing absolute value
-      minmax_abs <-- reorder by increasing absolute value
+      minmax_abs <-- order by increasing absolute values
+      maxmin_abs <-- order by decreasing absolute values
+
+      mnnmxx_abs <-- reorder args by increasing absolute value
+      mxxmnn_abs <-- reorder args by decreasing absolute value
 
       hitolo_abs <-- reorder by decreasing absolute value of first-in-pair 
-      mxxmnn_abs <-- reorder pairwise by decreasing absolute value
-      
 =#
 
 """
-    minmax_abs(a, b)
-    
-- assures abs(a) <= abs(b)
-    - where a, b = minmax_abs(a, b)
-"""
-minmax_abs(a::T, b::T) where {T} = abs(b) < abs(a) ? (b, a) : (a, b)
+    a,b = minmax_abs(a, b)
+    a,b,c = minmax_abs(a, b, c)
+
+reorder by increasing absolute value
+""" minmax_abs
 
 """
-    minmax_abs(a, b, c)
-    
-- assures abs(a) <= abs(b) <= abs(c)
-    - where a, b, c = minmax_abs(a, b, c)
-"""
-function minmax_abs(a::T, b::T, c::T) where {T}
+    a,b = maxmin_abs(a, b) 
+    a,b,c = maxmin_abs(a, b, c) 
+
+reorder by decreasing absolute value
+""" maxmin_abs
+      
+minmax_abs(a::T, b::T) where {T<:FastFloat} =
+    abs(b) < abs(a) ? (b, a) : (a, b)
+
+minmax_abs(a::Pair{T}, b::Pair{T}) where {T<:FastFloat} =
+    abs(b[1]) < abs(a[1]) ? (b, a) : (a, b)
+
+function minmax_abs(a::T, b::T, c::T) where {T<:FastFloat}
     b, c = minmax_abs(b, c)
     a, c = minmax_abs(a, c)
     a, b = minmax_abs(a, b)
     return (a, b, c)
 end
 
-"""
-    maxmin_abs(a, b)
-    
-- assures abs(a) >= abs(b)
-    - where a, b = maxmin_abs(a, b)
-"""
-maxmin_abs(a::T, b::T) where {T} = abs(b) < abs(a) ? (a, b) : (b, a)
+maxmin_abs(a::T, b::T) where {T<:FastFloat} =
+    abs(b) < abs(a) ? (a, b) : (b, a)
 
-"""
-    maxmin_abs(a, b, c)
-    
-- assures abs(a) >= abs(b) >= abs(c)
-    - where a, b, c = maxmin_abs(a, b, c)
-"""
-function maxmin_abs(a::T, b::T, c::T) where {T}
+maxmin_abs(a::Pair{T}, b::Pair{T}) where {T<:FastFloat} =
+    abs(a[1]) < abs(b[1]) ? (b, a) : (a, b)
+
+function maxmin_abs(a::T, b::T, c::T) where {T<:FastFloat}
     b, c = maxmin_abs(b, c)
     a, c = maxmin_abs(a, c)
     a, b = maxmin_abs(a, b)
     return (a, b, c)
 end
+
+#=
+function mnnmxx_abs(a::Pair{T}, b::Pair{T}) where {T<:FastFloat}
+    ahi, alo = a
+    bhi, blo = b
+    if bhi < ahi
+        if 
+        ahi, bhi = bhi, ahi
+        if blo < alo
+            alo, blo = blo, alo
+    end
+    return Pair{T}(ahi, alo), Pair{T}(bhi, blo)
+   
+    if abs(a[1]) > abs(b[1])
+      
+maxmin_abs(a::T, b::T) where {T<:FastFloat} = abs(b) < abs(a) ? (a, b) : (b, a)
+
+
+
 
 """
     hitolo_abs(ahi, alo, bhi, blo)
@@ -60,11 +77,11 @@ end
     - where ahi, alo, bhi, blo = mxmn_abs(ahi, alo, bhi, blo)
 """
 function hi2lo_abs(ahi, alo, bhi, blo)
-      if abs(ahi) < abs(bhi)
-         bhi, blo, ahi, alo
-      else
-         ahi, alo, bhi, blo
-      end
+    if abs(ahi) < abs(bhi)
+        bhi, blo, ahi, alo
+    else
+        ahi, alo, bhi, blo
+    end
 end   
 
 """
@@ -80,4 +97,4 @@ function mxxmnn_abs(ahi::T, alo::T, bhi::T, blo::T) where {T}
     return (ahi, alo, bhi, blo)
 end
 
-
+=#
