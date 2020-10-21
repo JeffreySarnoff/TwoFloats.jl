@@ -1,7 +1,6 @@
-module PairArithmetic
-#module FloatFloats
+module FloatFloats
 
-export FloatFloat
+export Float96, Float48
 
 const FastFloat = Union{Float32, Float64}
 
