@@ -30,6 +30,20 @@ Computes `hi = fl(a+b)` and `lo = err(a+b)`.
 end
 
 """
+    two_sum_ordered(a, b)
+
+Computes `hi = fl(a+b)` and `lo = err(a+b)`.
+"""
+@inline function two_sum_ordered(a::T, b::T) where {T}
+    if abs(a) < abs(b)
+        a, b = b, a
+    end    
+    hi = a + b
+    lo = b - (hi - a)
+    return hi, lo
+end
+
+"""
    two_sum(a, b, c)
     
 Computes `hi = fl(a+b+c)` and `lo = err(a+b+c)`.
@@ -41,6 +55,7 @@ function two_sum(a::T, b::T, c::T) where {T}
     hi, lo = two_hilo_sum(hi, t0)
     return hi, lo
 end
+
 
 # arguments sorted by magnitude
 
@@ -66,7 +81,6 @@ Computes `hi = fl(a+b)` and `lo = err(a+b)`.
     lo = a - (hi - b)
     return hi, lo
 end
-
 
 """
     two_diff(a, b)
