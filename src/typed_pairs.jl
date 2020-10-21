@@ -1,3 +1,12 @@
+const Float96 = Tuple{Float64, Float64}
+const Float48 = Tuple{Float32, Float32}
+
+Float96(x::Float96) = x
+Float48(x::Float48) = x
+
+Float96(x::Float64, y::Float64) = two_sum(x, y)
+Float48(x::Float24, y::Float24) = two_sum(x, y)
+
 #=
 FloatFloat{T} = Tuple{T,T}
 FloatFloat(a, b) == (maxabs(a,b), minabs(a,b))
