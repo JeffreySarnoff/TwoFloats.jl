@@ -1,3 +1,52 @@
+function cpairsum(ahi, alo, bhi, blo)
+    hihi, hilo = two_sum_ordered(ahi, bhi)
+    t  = ahi + bhi - hihi
+    lo = (t + hilo) + (alo + blo)
+    return hi, lo
+end
+
+function cpairsum(ahi, alo, bhi, blo)
+    hi = ahi + bhi
+    t  = ahi + bhi - hi
+    lo = t + (alo + blo)
+    return hi, lo
+end
+
+function cpairdiff(ahi, alo, bhi, blo)
+    hi = ahi - bhi
+    t  = ahi - bhi - hi
+    lo = t + (alo - blo)
+    return hi, lo
+end
+
+function cpairprod(ahi, alo, bhi, blo)
+    hi = a * b
+    t  = fma(ahi, bhi, -hi)
+    lo = t + (ahi*blo + bhi*alo)
+    return hi, lo
+end
+
+function cpairinv(bhi::T, blo::T) where {T}
+    hi = inv(bhi)
+    t  = fma(-hi, bhi, one(T))
+    lo = fma(-hi, blo, t) / (bhi + blo)
+    return hi, lo
+end
+
+function cpairdiv(ahi, alo, bhi, blo)
+    hi = ahi / bhi
+    t  = fma(-hi, bhi, ahi)
+    lo = ((t + alo) - (hi*blo)) / (bhi + blo)
+    return hi, lo
+end
+
+function cpairsqrt(ahi, alo)
+    hi = sqrt(ahi)
+    t  = -fma(hi, hi, -ahi)
+    lo = (t + alo) / (2hi)
+    return hi, lo
+end
+
 Base.:(-)(a::FloatFloat) = (-a[1], -a[2])
 Base.signbit(a::FloatFloat) = signbit(a[1])
 Base.abs(a::FloatFloat) = signbit(a[1]) ? (abs(a[1]), -a[2]) : a
