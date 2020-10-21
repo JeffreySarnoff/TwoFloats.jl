@@ -33,9 +33,6 @@ function TwoFloat(ab::Tuple{T,T}) where {T}
     return TwoFloat{T}(a, b)
 end
 
-
-
-
 @inline function two_sum(a::T, b::T) where {T}
    hi = a + b
    v  = hi - a
@@ -101,7 +98,6 @@ Base.iterate(x::TwoFloat{T}, iter=1) where {T} =
     iter > lastidex(x) ? nothing : (getfield(x, iter), iter + 1)
 Base.indexed_iterate(x::TwoFloat{T}, i::Int, state=1) where {T} =
     (getfield(t, i), i+1)
-
 
 Base.prevind(x::TwoFloat{T}, i::Integer) where{T} = Int(i)-1
 Base.nextind(x::TwoFloat{T}, i::Integer) where {T} = Int(i)+1
