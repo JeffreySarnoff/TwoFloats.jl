@@ -63,21 +63,11 @@ end
 end
 
 
-hash(x::TwoFloat, h::UInt) = hash(x.lo, hash(x.hi, h))
-
-eltype(x::Type{TwoFloat{T}}) where {T} = T}
-
-length(x::TwoFloat{T}) where {T} = 2
-
-iterate(x::TwoFloat, i=1) = i > 2 ? nothing : (getfield(p, i), i + 1)
-indexed_iterate(x::TwoFloat, i::Int, state=1) = (getfield(p, i), i + 1)
-
-
 ==(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
-   (x.hi === y.hi) & (x.lo === y.lo)
+   (x.hi === y.hi) && (x.lo === y.lo)
 
 !=(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
-   (x.hi !=== y.hi) | (x.lo !=== y.lo)
+   (x.hi !=== y.hi) || (x.lo !=== y.lo)
 
 <=(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
    (x.hi < y.hi) || ((x.hi === y.hi) & (x.lo <= y.lo))
@@ -93,17 +83,33 @@ indexed_iterate(x::TwoFloat, i::Int, state=1) = (getfield(p, i), i + 1)
 
 isequal(x::TwoFloat, y::TwoFloat) = 
     isequal(x.hi ,y.hi) & isequal(x.lo, y.lo)
-
 isless(x::TwoFloat, y::TwoFloat) = 
     ifelse(!isequal(x.hi,y.hi), isless(x.hi,y.hi), isless(x.lo,y.lo))
 
-getindex(x::TwoFloat, i::Int) = getfield(p,i)
-getindex(x::TwoFloat, i::Real) = getfield(p, convert(Int, i))
+Base.hash(x::TwoFloat, h::UInt) = hash(x.lo, hash(x.hi, h))
+Base.eltype(x::Type{TwoFloat{T}}) where {T} = T
 
-firstindex(x::TwoFloat{T}) where {T} = 1
-lastindex(x::TwoFloat{T})  where {T} = 2
-first(x::TwoFloat{T}) where {T} = x.hi
-last(x::TwoFloat{T})  where {T} = x.lo
+Base.length(x::TwoFloat{T}) where {T} = 2
+Base.nfields(x::TwoFloat{T}) where {T} = 2
+Base.fieldcount(::Type{TwoFloat{T}}) where {T} = 2
+Base.fieldnames(::Type{TwoFloat{T}}) where {T} = (:hi, :lo)
+
+Base.firstindex(x::TwoFloat{T}) where {T} = 1
+Base.lastindex(x::TwoFloat{T})  where {T} = 2
+Base.first(x::TwoFloat{T}) where {T} = x.hi
+Base.last(x::TwoFloat{T})  where {T} = x.lo
+
+Base.getindex(x::TwoFloat, i::Int) = getfield(x, i)
+Base.getindex(x::TwoFloat, i::Real) = getfield(x, convert(Int, i))
+Base.getindex(x::TwoFloat, i::Symbol) = getfield(x, i)
+
+Base.iterate(x::TwoFloat{T}, iter=1) where {T} =
+    iter > lastidex(x) ? nothing : (getfield(x, iter), iter + 1)
+Base.indexed_iterate(x::TwoFloat{T}, i::Int, state=1) where {T} =
+    (getfield(t, i), i+1)
+
+Base.prevind(x::TwoFloat{T}, i::Integer) where{T} = Int(i)-1
+Base.nextind(x::TwoFloat{T}, i::Integer) where {T} = Int(i)+1
 
 """
     refresh(a::TwoFloat)
