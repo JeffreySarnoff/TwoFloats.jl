@@ -2,6 +2,8 @@ module PairArithmetic
 
 export Paired
 
+const FastFloat = Union{Float32, Float64}
+
 using LinearAlgebra
 using StructArrays, LoopVectorization
 using ErrorfreeArithmetic
