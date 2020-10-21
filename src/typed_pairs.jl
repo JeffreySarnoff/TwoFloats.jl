@@ -62,28 +62,22 @@ end
    hi, lo
 end
 
-
-==(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
+Base.:(==)(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
    (x.hi === y.hi) && (x.lo === y.lo)
-
-!=(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
+Base.:(!=)(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
    (x.hi !=== y.hi) || (x.lo !=== y.lo)
-
-<=(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
+Base.:(<=)(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
    (x.hi < y.hi) || ((x.hi === y.hi) & (x.lo <= y.lo))
-
->=(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
+Base.:(>=)(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
    (x.hi > y.hi) || ((x.hi === y.hi) & (x.lo >= y.lo))
-
-<(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
+Base.:(<)(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
    (x.hi < y.hi) || ((x.hi === y.hi) & (x.lo < y.lo))
-
->(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
+Base.:(>)(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
    (x.hi > y.hi) || ((x.hi === y.hi) & (x.lo > y.lo))
 
-isequal(x::TwoFloat, y::TwoFloat) = 
+Base.isequal(x::TwoFloat, y::TwoFloat) = 
     isequal(x.hi ,y.hi) & isequal(x.lo, y.lo)
-isless(x::TwoFloat, y::TwoFloat) = 
+Base.isless(x::TwoFloat, y::TwoFloat) = 
     ifelse(!isequal(x.hi,y.hi), isless(x.hi,y.hi), isless(x.lo,y.lo))
 
 Base.hash(x::TwoFloat, h::UInt) = hash(x.lo, hash(x.hi, h))
@@ -108,8 +102,17 @@ Base.iterate(x::TwoFloat{T}, iter=1) where {T} =
 Base.indexed_iterate(x::TwoFloat{T}, i::Int, state=1) where {T} =
     (getfield(t, i), i+1)
 
+
 Base.prevind(x::TwoFloat{T}, i::Integer) where{T} = Int(i)-1
 Base.nextind(x::TwoFloat{T}, i::Integer) where {T} = Int(i)+1
+
+Base.convert(::Type{TwoFloat{T}}, x::TwoFloat{T}) where {T} = x
+function Base.convert(::Type{TwoFloat{T1}}, x::TwoFloat{T2}) where {T1,T2}
+    TwoFloat{T1}(convert(T1, x[1]), convert(T1, x[2]))
+end
+Base.promote_rule(::Type{TwoFloat{T1}}, ::Type{TwoFloat{T2}) where {T1,T2} =
+    TwoFloat{promote_type(T1, T2)}
+
 
 """
     refresh(a::TwoFloat)
