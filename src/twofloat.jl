@@ -1,9 +1,3 @@
-Float96(x::Float96) = x
-Float48(x::Float48) = x
-
-Float96(x::Float64, y::Float64) = two_sum(x, y)
-Float48(x::Float24, y::Float24) = two_sum(x, y)
-
 #=
     TwoFloat{T}(a, b) --> (a, b)
 
@@ -29,6 +23,12 @@ function TwoFloat(ab::Tuple{T,T}) where {T}
     a, b = two_hilo_sum(a, b)
     return TwoFloat{T}(a, b)
 end
+
+Float96(x::Float96) = x
+Float48(x::Float48) = x
+
+Float96(x::Float64, y::Float64) = two_sum(x, y)
+Float48(x::Float24, y::Float24) = two_sum(x, y)
 
 @inline function two_sum(a::T, b::T) where {T}
    hi = a + b
