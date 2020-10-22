@@ -1,6 +1,3 @@
-const Float96 = Tuple{Float64, Float64}
-const Float48 = Tuple{Float32, Float32}
-
 Float96(x::Float96) = x
 Float48(x::Float48) = x
 
