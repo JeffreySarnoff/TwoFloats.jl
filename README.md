@@ -5,10 +5,10 @@
 ----
 
  
-                                       Please Note                        
-                                   ------------------
-                                 This is Work-in-Process.
-                                 It is not yet made ready.     
+                                             Please Note                        
+                                   
+                                        This is Work-in-Process.
+                                        It is not yet made ready.     
                    
              
 ----
