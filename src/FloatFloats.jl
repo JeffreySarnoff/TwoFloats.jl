@@ -9,6 +9,9 @@ using StructArrays, LoopVectorization
 using ErrorfreeArithmetic
 
 include("typed_floatfloat.jl")
+const Float96 = Float{2, Float64}
+const Float48 = Float{2, Float32}
+
 include("floatfloat_arithmetic.jl")
 include("reorder_by_magnitude.jl")
 
