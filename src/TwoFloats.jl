@@ -8,7 +8,7 @@ using LinearAlgebra
 using StructArrays, LoopVectorization
 using ErrorfreeArithmetic
 
-include("float_struct.jl")
+include("twofloat.jl")
 const Float96 = TwoFloat{Float64}
 const Float48 = TwoFloat{Float32}
 
