@@ -1,4 +1,4 @@
-name = "PairArithmetic"
+name = "TwoFloats"
 uuid = "bf5b35d8-838d-41b7-9f78-454e6b2b90d3"
 keywords = ["Julia", "math", "floating-point", "extended-precision", "accuracy", "doubledouble"]
 authors = ["Jeffrey Sarnoff <JeffreySarnoff@users.noreply.github.com>"]
