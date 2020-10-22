@@ -5,10 +5,9 @@
 ----
 
  
-                              Please Note                        
-                           ------------------
-                   This is Work-in-Process.  When ready,     
-                   the package will be given a new name.
+                                       Please Note                        
+                                   ------------------
+                   This is Work-in-Process.  It is not yet made ready.     
                    
              
 ----
