@@ -1,4 +1,4 @@
-module FloatFloats
+module TwoFloats
 
 export Float96, Float48
 
@@ -18,4 +18,4 @@ inclued("support_StructArrays.jl")
 include("floatfloat_arithmetic.jl")
 include("reorder_by_magnitude.jl")
 
-end  FloatFloats
+end  TwoFloats
