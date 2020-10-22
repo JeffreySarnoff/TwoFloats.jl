@@ -1,14 +1,15 @@
-# TwoFloats.jl
+# TwoFloats.jl 
 
 ### Copyright ©2020 by Jeffrey Sarnoff. This material is made available under the MIT License.
 
 ----
 
- |
- |                                            Please Note                         |
- |                                                                                |
- |                                       This is Work-in-Process.                 |
- |                                       It is not yet made ready.                |
+ 
+ |                          |                 Please Note                          |
+ |:-------------------------|:----------------------------------------------------:|
+ |                           |                                                     |
+ |                            |           This is Work-in-Process.                 |
+ |                             |          It is not yet made ready.                |
                    
              
 ----
