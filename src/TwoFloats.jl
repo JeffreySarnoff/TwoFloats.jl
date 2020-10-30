@@ -15,6 +15,7 @@ const Float48 = TwoFloat{Float32}
 include("support_StructArrays.jl")
 
 include("floatfloat_arithmetic.jl")
+include("doubleword_arithmetic.jl")
 include("reorder_by_magnitude.jl")
 
 end  # TwoFloats
