@@ -9,8 +9,6 @@ using StructArrays, LoopVectorization
 using ErrorfreeArithmetic
 
 include("twofloat.jl")
-const Float96 = TwoFloat{Float64}
-const Float48 = TwoFloat{Float32}
 
 include("support_StructArrays.jl")
 
