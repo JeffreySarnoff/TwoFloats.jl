@@ -35,8 +35,8 @@ end
 
 function cpairdiv(ahi, alo, bhi, blo)
     hi = ahi / bhi
-    t  = fma(-hi, bhi, ahi)
-    lo = ((t + alo) - (hi*blo)) / (bhi + blo)
+    t  = fma(-hi, bhi, ahi) + alo
+    lo = fma(-hi, blo, t) / (bhi + blo)
     return hi, lo
 end
 
