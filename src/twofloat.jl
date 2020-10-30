@@ -62,7 +62,7 @@ end
 Base.:(==)(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
    (x.hi === y.hi) && (x.lo === y.lo)
 Base.:(!=)(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
-   (x.hi !=== y.hi) || (x.lo !=== y.lo)
+   (x.hi !== y.hi) || (x.lo !== y.lo)
 Base.:(<=)(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
    (x.hi < y.hi) || ((x.hi === y.hi) & (x.lo <= y.lo))
 Base.:(>=)(x::TwoFloat{T}, y::TwoFloat{T}) where {T} =
@@ -81,7 +81,6 @@ Base.hash(x::TwoFloat, h::UInt) = hash(x.lo, hash(x.hi, h))
 Base.eltype(x::Type{TwoFloat{T}}) where {T} = T
 
 Base.length(x::TwoFloat{T}) where {T} = 2
-Base.nfields(x::TwoFloat{T}) where {T} = 2
 Base.fieldcount(::Type{TwoFloat{T}}) where {T} = 2
 Base.fieldnames(::Type{TwoFloat{T}}) where {T} = (:hi, :lo)
 
@@ -106,7 +105,7 @@ Base.convert(::Type{TwoFloat{T}}, x::TwoFloat{T}) where {T} = x
 function Base.convert(::Type{TwoFloat{T1}}, x::TwoFloat{T2}) where {T1,T2}
     TwoFloat{T1}(convert(T1, x[1]), convert(T1, x[2]))
 end
-Base.promote_rule(::Type{TwoFloat{T1}}, ::Type{TwoFloat{T2}) where {T1,T2} =
+Base.promote_rule(::Type{TwoFloat{T1}}, ::Type{TwoFloat{T2}}) where {T1,T2} =
     TwoFloat{promote_type(T1, T2)}
 
 
