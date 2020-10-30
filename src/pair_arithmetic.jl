@@ -47,13 +47,13 @@ function cpairsqrt(ahi::T, alo::T) where {T}
     return hi, lo
 end
 
-Base.:(-)(a::FloatFloat{T}) where {T} = (-a[1], -a[2])
-Base.signbit(a::FloatFloat{T}) where {T} = signbit(a[1])
-Base.abs(a::FloatFloat{T}) where {T} = signbit(a[1]) ? (abs(a[1]), -a[2]) : a
-Base.copysign(a::FloatFloat, b) = signbit(b) ? (signbit(a[1]) ? a : -a) : a
-Base.flipsign(a::FloatFloat, b) = signbit(b) ? -a : a
+Base.:(-)(a::TwoFloat{T}) where {T} = (-a[1], -a[2])
+Base.signbit(a::TwoFloat{T}) where {T} = signbit(a[1])
+Base.abs(a::TwoFloat{T}) where {T} = signbit(a[1]) ? (abs(a[1]), -a[2]) : a
+Base.copysign(a::TwoFloat, b) = signbit(b) ? (signbit(a[1]) ? a : -a) : a
+Base.flipsign(a::TwoFloat, b) = signbit(b) ? -a : a
 
-function Base.:(+)(a::FloatFloat{T}, b::FloatFloat{T}) where {T}
+function Base.:(+)(a::TwoFloat{T}, b::TwoFloat{T}) where {T}
     if abs(b[1]) <= abs(a[1])
          ahi, alo = a
          bhi, blo = b
@@ -64,18 +64,18 @@ function Base.:(+)(a::FloatFloat{T}, b::FloatFloat{T}) where {T}
     return Base.:(+)(ahi, alo, bhi, blo)
 end
 
-function Base.:(+)(ahi::FloatFloat{T}, alo::FloatFloat{T}, bhi::FloatFloat{T}, blo::FloatFloat{T})  where {T}
+function Base.:(+)(ahi::T, alo::T, bhi::T, blo::T)  where {T<:FastFloat}
     t0, t1 = two_hilo_sum(ahi, alo)
     t2, t3 = two_hilo_sum(bhi, blo)
     hi, t4 = two_hilo_sum(t0, t2)
     lo = t4 + (t1 + t3)
     hi, lo = two_hilo_sum(hi, lo)
     
-    return FloatFloat((hi, lo))
+    return TwoFloat{T}((hi, lo))
 end
 
 
-function Base.:(+)(a::FloatFloat{T}, b::FloatFloat{T}) where {T}
+function Base.:(+)(a::TwoFloat{T}, b::TwoFloat{T}) where {T}
     if abs(b[1]) <= abs(a[1])
          ahi, alo = a
          bhi, blo = b
@@ -88,25 +88,10 @@ function Base.:(+)(a::FloatFloat{T}, b::FloatFloat{T}) where {T}
     hi, t4 = two_hilo_sum(t0, t2)
     lo = t4 + (t1+t3)
     hi, lo = two_hilo_sum(hi, lo)
-    return FloatFloat((hi, lo))
+    return TwoFloat{T}((hi, lo))
 end
 
-#=
-function Base.:(+)(a::FloatFloat, b::FloatFloat)
-    ahi, alo = a
-    bhi, blo = b
-    # ahi, alo, bhi, blo = mxxmnn_abs(ahi, alo, bhi, blo)
-    ahi, alo, bhi, blo = hitolo_abs(ahi, alo, bhi, blo)
-    t0, t1 = two_hilo_sum(ahi, alo)
-    t2, t3 = two_hilo_sum(bhi, blo)
-    hi, t4 = two_hilo_sum(t0, t2)
-    lo = t4 + (t1+t3)
-    hi, lo = two_hilo_sum(hi, lo)
-    return FloatFloat((hi, lo))
-end
-=#
-
-function Base.:(-)(a::FloatFloat{T}, b::FloatFloat{T}) where {T}
+function Base.:(-)(a::TwoFloat{T}, b::TwoFloat{T}) where {T}
     ahi, alo = a
     bhi, blo = b
     ahi, alo, bhi, blo = mxxmnn_abs(ahi, alo, -bhi, -blo)
@@ -115,10 +100,10 @@ function Base.:(-)(a::FloatFloat{T}, b::FloatFloat{T}) where {T}
     hi, t4 = two_hilo_sum(t0, t2)
     lo = t4 + (t1+t3)
     hi, lo = two_hilo_sum(hi, lo)
-    return FloatFloat((hi, lo))
+    return TwoFloat{T}((hi, lo))
 end
 
-function Base.:(*)(a::FloatFloat{T}, b::FloatFloat{T}) where {T}
+function Base.:(*)(a::TwoFloat{T}, b::TwoFloat{T}) where {T}
     ahi, alo = a
     bhi, blo = b
     if abs(alo) > abs(bhi)
@@ -128,30 +113,30 @@ function Base.:(*)(a::FloatFloat{T}, b::FloatFloat{T}) where {T}
     hi = ahi * bhi
     t = fma(ahi, bhi, -hi)
     lo = t + (ahi*blo + bhi*alo)
-    return FloatFloat((hi, lo))
+    return TwoFloat{T}((hi, lo))
 end
 
-function Base.:(/)(a::FloatFloat{T}, b::FloatFloat{T}) where {T}
+function Base.:(/)(a::TwoFloat{T}, b::TwoFloat{T}) where {T}
     ahi, alo = a
     bhi, blo = b
     hi = ahi / bhi
     t = fma(-bhi, hi, ahi)
     lo = ((t + alo) - hi*blo) / (bhi + blo)
-    return FloatFloat((hi, lo))
+    return TwoFloat{T}((hi, lo))
 end
 
-function Base.inv(b::FloatFloat{T}) where {T}
+function Base.inv(b::TwoFloat{T}) where {T}
     bhi, blo = b
     hi = inv(bhi)
     t = fma(-bhi, hi, one(T))
     lo = -(hi * blo) / (bhi + blo)
-    return FloatFloat((hi, lo))
+    return TwoFloat{T}((hi, lo))
 end
 
-function Base.sqrt(a::FloatFloat{T}) where {T}
+function Base.sqrt(a::TwoFloat{T}) where {T}
     ahi, alo = a
     hi = sqrt(ahi)
     t = fma(hi, -hi, ahi)
     lo = (t + alo) / (2 * hi)
-    return FloatFloat((hi, lo))
+    return TwoFloat{T}((hi, lo))
 end
