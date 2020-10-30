@@ -1,25 +1,25 @@
-function cpairsum(ahi, alo, bhi, blo)
+function cpairsum(ahi::T, alo::T, bhi::T, blo::T) where {T}
     hihi, hilo = two_sum_ordered(ahi, bhi)
     t  = ahi + bhi - hihi
     lo = (t + hilo) + (alo + blo)
     return hi, lo
 end
 
-function cpairsum(ahi, alo, bhi, blo)
+function cpairsum(ahi::T, alo::T, bhi::T, blo::T) where {T}
     hi = ahi + bhi
     t  = ahi + bhi - hi
     lo = t + (alo + blo)
     return hi, lo
 end
 
-function cpairdiff(ahi, alo, bhi, blo)
+function cpairdiff(ahi::T, alo::T, bhi::T, blo::T) where {T}
     hi = ahi - bhi
     t  = ahi - bhi - hi
     lo = t + (alo - blo)
     return hi, lo
 end
 
-function cpairprod(ahi, alo, bhi, blo)
+function cpairprod(ahi::T, alo::T, bhi::T, blo::T) where {T}
     hi = a * b
     t  = fma(ahi, bhi, -hi)
     lo = t + (ahi*blo + bhi*alo)
@@ -33,23 +33,23 @@ function cpairinv(bhi::T, blo::T) where {T}
     return hi, lo
 end
 
-function cpairdiv(ahi, alo, bhi, blo)
+function cpairdiv(ahi::T, alo::T, bhi::T, blo::T) where {T}
     hi = ahi / bhi
     t  = fma(-hi, bhi, ahi) + alo
     lo = fma(-hi, blo, t) / (bhi + blo)
     return hi, lo
 end
 
-function cpairsqrt(ahi, alo)
+function cpairsqrt(ahi::T, alo::T) where {T}
     hi = sqrt(ahi)
     t  = -fma(hi, hi, -ahi)
     lo = (t + alo) / (2hi)
     return hi, lo
 end
 
-Base.:(-)(a::FloatFloat) = (-a[1], -a[2])
-Base.signbit(a::FloatFloat) = signbit(a[1])
-Base.abs(a::FloatFloat) = signbit(a[1]) ? (abs(a[1]), -a[2]) : a
+Base.:(-)(a::FloatFloat{T}) where {T} = (-a[1], -a[2])
+Base.signbit(a::FloatFloat{T}) where {T} = signbit(a[1])
+Base.abs(a::FloatFloat{T}) where {T} = signbit(a[1]) ? (abs(a[1]), -a[2]) : a
 Base.copysign(a::FloatFloat, b) = signbit(b) ? (signbit(a[1]) ? a : -a) : a
 Base.flipsign(a::FloatFloat, b) = signbit(b) ? -a : a
 
@@ -64,7 +64,7 @@ function Base.:(+)(a::FloatFloat{T}, b::FloatFloat{T}) where {T}
     return Base.:(+)(ahi, alo, bhi, blo)
 end
 
-function Base.:(+)(ahi::T, alo::T, bhi::T, blo::T)  where {T}
+function Base.:(+)(ahi::FloatFloat{T}, alo::FloatFloat{T}, bhi::FloatFloat{T}, blo::FloatFloat{T})  where {T}
     t0, t1 = two_hilo_sum(ahi, alo)
     t2, t3 = two_hilo_sum(bhi, blo)
     hi, t4 = two_hilo_sum(t0, t2)
@@ -75,7 +75,7 @@ function Base.:(+)(ahi::T, alo::T, bhi::T, blo::T)  where {T}
 end
 
 
-function Base.:(+)(a::FloatFloat, b::FloatFloat)
+function Base.:(+)(a::FloatFloat{T}, b::FloatFloat{T}) where {T}
     if abs(b[1]) <= abs(a[1])
          ahi, alo = a
          bhi, blo = b
@@ -106,7 +106,7 @@ function Base.:(+)(a::FloatFloat, b::FloatFloat)
 end
 =#
 
-function Base.:(-)(a::FloatFloat, b::FloatFloat)
+function Base.:(-)(a::FloatFloat{T}, b::FloatFloat{T}) where {T}
     ahi, alo = a
     bhi, blo = b
     ahi, alo, bhi, blo = mxxmnn_abs(ahi, alo, -bhi, -blo)
@@ -118,7 +118,7 @@ function Base.:(-)(a::FloatFloat, b::FloatFloat)
     return FloatFloat((hi, lo))
 end
 
-function Base.:(*)(a::FloatFloat, b::FloatFloat)
+function Base.:(*)(a::FloatFloat{T}, b::FloatFloat{T}) where {T}
     ahi, alo = a
     bhi, blo = b
     if abs(alo) > abs(bhi)
@@ -131,7 +131,7 @@ function Base.:(*)(a::FloatFloat, b::FloatFloat)
     return FloatFloat((hi, lo))
 end
 
-function Base.:(/)(a::FloatFloat, b::FloatFloat)
+function Base.:(/)(a::FloatFloat{T}, b::FloatFloat{T}) where {T}
     ahi, alo = a
     bhi, blo = b
     hi = ahi / bhi
@@ -148,7 +148,7 @@ function Base.inv(b::FloatFloat{T}) where {T}
     return FloatFloat((hi, lo))
 end
 
-function Base.sqrt(a::FloatFloat)
+function Base.sqrt(a::FloatFloat{T}) where {T}
     ahi, alo = a
     hi = sqrt(ahi)
     t = fma(hi, -hi, ahi)
