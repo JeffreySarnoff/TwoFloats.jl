@@ -1,18 +1,36 @@
-function cpairsum(ahi::T, alo::T, bhi::T, blo::T) where {T}
+function cpairsum(a::TwoFloat{T}, b::TwoFloat{T}) where {T} =
+    TwoFloat{T}(cpairsum(a[1],a[2],b[1],b[2]))
+    
+function cpairdiff(a::TwoFloat{T}, b::TwoFloat{T}) where {T} =
+    TwoFloat{T}(cpairdiff(a[1],a[2],b[1],b[2]))
+
+function cpairprod(a::TwoFloat{T}, b::TwoFloat{T}) where {T} =
+    TwoFloat{T}(cpairprod(a[1],a[2],b[1],b[2]))
+
+function cpairdiv(a::TwoFloat{T}, b::TwoFloat{T}) where {T} =
+    TwoFloat{T}(cpairdiv(a[1],a[2],b[1],b[2]))
+
+function cpairinv(a::TwoFloat{T}) where {T} =
+    TwoFloat{T}(cpairinv(a[1],a[2]))
+
+function cpairinv(a::TwoFloat{T}) where {T} =
+    TwoFloat{T}(cpairinv(a[1],a[2]))
+                
+@inline function cpairsum(ahi::T, alo::T, bhi::T, blo::T) where {T}
     hihi, hilo = two_sum_ordered(ahi, bhi)
     t  = ahi + bhi - hihi
     lo = (t + hilo) + (alo + blo)
     return hi, lo
 end
 
-function cpairsum(ahi::T, alo::T, bhi::T, blo::T) where {T}
+@inline function cpairsum(ahi::T, alo::T, bhi::T, blo::T) where {T}
     hi = ahi + bhi
     t  = ahi + bhi - hi
     lo = t + (alo + blo)
     return hi, lo
 end
 
-function cpairdiff(ahi::T, alo::T, bhi::T, blo::T) where {T}
+@inline function cpairdiff(ahi::T, alo::T, bhi::T, blo::T) where {T}
     hi = ahi - bhi
     t  = ahi - bhi - hi
     lo = t + (alo - blo)
