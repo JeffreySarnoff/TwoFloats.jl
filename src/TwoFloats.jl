@@ -17,5 +17,6 @@ include("support_StructArrays.jl")
 include("floatfloat_arithmetic.jl")
 include("doubleword_arithmetic.jl")
 include("reorder_by_magnitude.jl")
+include("pair_arithmetic.jl")
 
 end  # TwoFloats
